@@ -32,7 +32,9 @@ function App({ isInitiallyLogged }) {
           <Route path=":advertId" element={<AdvertPage />} />
         </Route>
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/404" element={<NotFoundPage />} />
+        <Route path="/404" element={<Layout />}>
+          <Route index element={<NotFoundPage />} />
+        </Route>
         <Route path="/" element={<Navigate to="/adverts" />} />
         <Route path="*" element={<Navigate to="/404" />} />
       </Routes>
