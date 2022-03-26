@@ -1,7 +1,6 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
 
-import Layout from '../../layout';
 import FiltersForm from './FiltersForm';
 import AdvertsList from './AdvertsList';
 import EmptyList from './EmptyList';
@@ -28,7 +27,7 @@ function AdvertsPage() {
   const filteredAdverts = filterAdverts(adverts, filters);
 
   return (
-    <Layout>
+    <>
       {adverts.length > 0 && (
         <FiltersForm
           initialFilters={filters}
@@ -42,7 +41,7 @@ function AdvertsPage() {
       ) : (
         <EmptyList advertsCount={adverts.length} />
       )}
-    </Layout>
+    </>
   );
 }
 

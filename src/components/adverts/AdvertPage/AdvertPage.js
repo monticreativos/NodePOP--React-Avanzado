@@ -1,7 +1,6 @@
 import React from 'react';
 import { Navigate, useParams, useNavigate } from 'react-router-dom';
 
-import Layout from '../../layout';
 import AdvertDetail from './AdvertDetail';
 import { getAdvert, deleteAdvert } from '../service';
 import useQuery from '../../../hooks/useQuery';
@@ -29,11 +28,7 @@ function AdvertPage() {
     return <Navigate to="/404" />;
   }
 
-  return (
-    <Layout>
-      {advert && <AdvertDetail onDelete={handleDelete} {...advert} />}
-    </Layout>
-  );
+  return <>{advert && <AdvertDetail onDelete={handleDelete} {...advert} />}</>;
 }
 
 export default AdvertPage;

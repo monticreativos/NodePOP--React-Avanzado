@@ -2,7 +2,6 @@ import React from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 
 import { createAdvert } from '../service';
-import Layout from '../../layout';
 import NewAdvertForm from './NewAdvertForm';
 import useMutation from '../../../hooks/useMutation';
 
@@ -19,9 +18,9 @@ function NewAdvertPage() {
   }
 
   return (
-    <Layout>
+    <>
       <NewAdvertForm onSubmit={handleSubmit} />
-    </Layout>
+    </>
   );
 }
 

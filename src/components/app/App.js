@@ -6,6 +6,7 @@ import { AdvertPage, AdvertsPage, NewAdvertPage } from '../adverts';
 import { LoginPage, RequireAuth } from '../auth';
 import { AuthProvider } from '../auth/context';
 import NotFoundPage from './NotFoundPage';
+import Layout from '../layout';
 
 function App({ isInitiallyLogged }) {
   const [isLogged, setIsLogged] = React.useState(isInitiallyLogged);
@@ -19,29 +20,17 @@ function App({ isInitiallyLogged }) {
     <AuthProvider {...authProps}>
       <Routes>
         <Route
-          path="/adverts/new"
-          element={
-            <RequireAuth>
-              <NewAdvertPage />
-            </RequireAuth>
-          }
-        />
-        <Route
-          path="/adverts/:advertId"
-          element={
-            <RequireAuth>
-              <AdvertPage />
-            </RequireAuth>
-          }
-        />
-        <Route
           path="/adverts"
           element={
             <RequireAuth>
-              <AdvertsPage />
+              <Layout />
             </RequireAuth>
           }
-        />
+        >
+          <Route index element={<AdvertsPage />} />
+          <Route path="new" element={<NewAdvertPage />} />
+          <Route path=":advertId" element={<AdvertPage />} />
+        </Route>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/404" element={<NotFoundPage />} />
         <Route path="/" element={<Navigate to="/adverts" />} />
