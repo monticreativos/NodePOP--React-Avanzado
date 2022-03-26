@@ -1,12 +1,14 @@
 import React from 'react';
-import T from 'prop-types';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { useAuthContext } from '../context';
 import { login } from '../service';
 import LoginForm from './LoginForm';
 import useMutation from '../../../hooks/useMutation';
 
-function LoginPage({ location, history }) {
+function LoginPage() {
+  const navigate = useNavigate();
+  const location = useLocation();
   const { handleLogin } = useAuthContext();
   const { isLoading, error, execute, resetError } = useMutation(login);
 
@@ -14,8 +16,8 @@ function LoginPage({ location, history }) {
     execute(credentials)
       .then(handleLogin)
       .then(() => {
-        const { from } = location.state || { from: { pathname: '/' } };
-        history.replace(from);
+        const from = location.state?.from?.pathname || '/';
+        navigate(from, { replace: true });
       });
   };
 
@@ -31,11 +33,5 @@ function LoginPage({ location, history }) {
     </div>
   );
 }
-
-LoginPage.propTypes = {
-  location: T.shape({ state: T.shape({ from: T.object.isRequired }) })
-    .isRequired,
-  history: T.shape({ replace: T.func.isRequired }).isRequired,
-};
 
 export default LoginPage;

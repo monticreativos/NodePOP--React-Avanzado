@@ -1,9 +1,9 @@
 import React from 'react';
 import T from 'prop-types';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 
 import { AdvertPage, AdvertsPage, NewAdvertPage } from '../adverts';
-import { LoginPage, PrivateRoute } from '../auth';
+import { LoginPage, RequireAuth } from '../auth';
 import { AuthProvider } from '../auth/context';
 import NotFoundPage from './NotFoundPage';
 
@@ -17,23 +17,36 @@ function App({ isInitiallyLogged }) {
 
   return (
     <AuthProvider {...authProps}>
-      <Switch>
-        <PrivateRoute exact path="/adverts/new" component={NewAdvertPage} />
-        <PrivateRoute exact path="/adverts/:advertId">
-          <AdvertPage />
-        </PrivateRoute>
-        <PrivateRoute exact path="/adverts">
-          <AdvertsPage />
-        </PrivateRoute>
-        <Route exact path="/login" component={LoginPage} />
-        <Route exact path="/404">
-          <NotFoundPage />
-        </Route>
-        <Route exact path="/">
-          <Redirect to="/adverts" />
-        </Route>
-        <Redirect to="/404" />
-      </Switch>
+      <Routes>
+        <Route
+          path="/adverts/new"
+          element={
+            <RequireAuth>
+              <NewAdvertPage />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/adverts/:advertId"
+          element={
+            <RequireAuth>
+              <AdvertPage />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/adverts"
+          element={
+            <RequireAuth>
+              <AdvertsPage />
+            </RequireAuth>
+          }
+        />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/404" element={<NotFoundPage />} />
+        <Route path="/" element={<Navigate to="/adverts" />} />
+        <Route path="*" element={<Navigate to="/404" />} />
+      </Routes>
     </AuthProvider>
   );
 }

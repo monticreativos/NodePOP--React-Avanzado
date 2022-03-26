@@ -1,23 +1,21 @@
 import React from 'react';
-import T from 'prop-types';
-import { Redirect } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 import { createAdvert } from '../service';
 import Layout from '../../layout';
 import NewAdvertForm from './NewAdvertForm';
 import useMutation from '../../../hooks/useMutation';
 
-function NewAdvertPage({ history }) {
+function NewAdvertPage() {
+  const navigate = useNavigate();
   const mutation = useMutation(createAdvert);
 
   const handleSubmit = newAdvert => {
-    mutation
-      .execute(newAdvert)
-      .then(({ id }) => history.push(`/adverts/${id}`));
+    mutation.execute(newAdvert).then(({ id }) => navigate(`/adverts/${id}`));
   };
 
   if (mutation.error?.statusCode === 401) {
-    return <Redirect to="/login" />;
+    return <Navigate to="/login" />;
   }
 
   return (
@@ -26,11 +24,5 @@ function NewAdvertPage({ history }) {
     </Layout>
   );
 }
-
-NewAdvertPage.propTypes = {
-  history: T.shape({
-    push: T.func.isRequired,
-  }).isRequired,
-};
 
 export default NewAdvertPage;
