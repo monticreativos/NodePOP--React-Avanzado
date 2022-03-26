@@ -6,29 +6,32 @@ function useMutation(mutation) {
 
   const resetError = () => setError(null);
 
-  const startExecution = () => {
-    resetError();
-    setIsLoading(true);
-  };
+  const execute = React.useCallback(
+    async function (...args) {
+      const startExecution = () => {
+        resetError();
+        setIsLoading(true);
+      };
 
-  const finishExecution = error => {
-    setIsLoading(false);
-    if (error) {
-      return setError(error);
-    }
-  };
+      const finishExecution = error => {
+        setIsLoading(false);
+        if (error) {
+          return setError(error);
+        }
+      };
 
-  const execute = async function (...args) {
-    startExecution();
-    try {
-      const result = await mutation(...args);
-      finishExecution(null, result);
-      return result;
-    } catch (error) {
-      finishExecution(error);
-      throw error;
-    }
-  };
+      startExecution();
+      try {
+        const result = await mutation(...args);
+        finishExecution(null);
+        return result;
+      } catch (error) {
+        finishExecution(error);
+        throw error;
+      }
+    },
+    [mutation],
+  );
 
   return {
     isLoading,

@@ -1,4 +1,6 @@
+import T from 'prop-types';
 import { Navigate, useLocation } from 'react-router-dom';
+
 import { useAuthContext } from '../context';
 
 const RequireAuth = ({ children }) => {
@@ -9,6 +11,10 @@ const RequireAuth = ({ children }) => {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
   return children;
+};
+
+RequireAuth.propTypes = {
+  children: T.node,
 };
 
 export default RequireAuth;
