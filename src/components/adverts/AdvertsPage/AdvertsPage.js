@@ -1,7 +1,6 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
-import Layout from '../../layout';
 import FiltersForm from './FiltersForm';
 import AdvertsList from './AdvertsList';
 import EmptyList from './EmptyList';
@@ -22,13 +21,13 @@ function AdvertsPage() {
   }, [filters]);
 
   if (error?.statusCode === 401) {
-    return <Redirect to="/login" />;
+    return <Navigate to="/login" />;
   }
 
   const filteredAdverts = filterAdverts(adverts, filters);
 
   return (
-    <Layout>
+    <>
       {adverts.length > 0 && (
         <FiltersForm
           initialFilters={filters}
@@ -42,7 +41,7 @@ function AdvertsPage() {
       ) : (
         <EmptyList advertsCount={adverts.length} />
       )}
-    </Layout>
+    </>
   );
 }
 

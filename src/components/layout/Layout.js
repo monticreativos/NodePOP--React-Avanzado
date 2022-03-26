@@ -1,24 +1,18 @@
-import T from 'prop-types';
+import { Outlet } from 'react-router-dom';
 
 import Header from './Header';
 import Footer from './Footer';
 
-function Layout({ children }) {
+function Layout() {
   return (
     <>
       <Header />
-      <main>{children}</main>
+      <main>
+        <Outlet />
+      </main>
       <Footer />
     </>
   );
 }
-
-Layout.propTypes = {
-  children: T.node,
-};
-
-Layout.defaultProps = {
-  children: null,
-};
 
 export default Layout;

@@ -3,7 +3,7 @@ import { AuthButton } from '../auth';
 
 import './Header.css';
 
-const isExact = match => match?.isExact;
+const isSelected = ({ isActive }) => (isActive ? 'selected' : '');
 
 function Header() {
   return (
@@ -12,20 +12,12 @@ function Header() {
       <nav>
         <ul>
           <li>
-            <NavLink
-              to="/adverts"
-              activeClassName="selected"
-              isActive={isExact}
-            >
+            <NavLink to="/adverts" className={isSelected} end>
               Nodepop
             </NavLink>
           </li>
           <li>
-            <NavLink
-              to="/adverts/new"
-              activeClassName="selected"
-              isActive={isExact}
-            >
+            <NavLink to="/adverts/new" className={isSelected}>
               New advert
             </NavLink>
           </li>

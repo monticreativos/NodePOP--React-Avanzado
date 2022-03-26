@@ -1,7 +1,6 @@
 import React from 'react';
-import { Redirect, useParams, useHistory } from 'react-router-dom';
+import { Navigate, useParams, useNavigate } from 'react-router-dom';
 
-import Layout from '../../layout';
 import AdvertDetail from './AdvertDetail';
 import { getAdvert, deleteAdvert } from '../service';
 import useQuery from '../../../hooks/useQuery';
@@ -9,7 +8,7 @@ import useMutation from '../../../hooks/useMutation';
 
 function AdvertPage() {
   const { advertId } = useParams();
-  const history = useHistory();
+  const navigate = useNavigate();
   const getAdvertById = React.useCallback(
     () => getAdvert(advertId),
     [advertId],
@@ -18,22 +17,18 @@ function AdvertPage() {
   const mutation = useMutation(deleteAdvert);
 
   const handleDelete = () => {
-    mutation.execute(advertId).then(() => history.push('/'));
+    mutation.execute(advertId).then(() => navigate('/'));
   };
 
   if (error?.statusCode === 401 || mutation.error?.statusCode === 401) {
-    return <Redirect to="/login" />;
+    return <Navigate to="/login" />;
   }
 
   if (error?.statusCode === 404) {
-    return <Redirect to="/404" />;
+    return <Navigate to="/404" />;
   }
 
-  return (
-    <Layout>
-      {advert && <AdvertDetail {...advert} onDelete={handleDelete} />}
-    </Layout>
-  );
+  return <>{advert && <AdvertDetail onDelete={handleDelete} {...advert} />}</>;
 }
 
 export default AdvertPage;

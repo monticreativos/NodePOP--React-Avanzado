@@ -1,4 +1,5 @@
 import React from 'react';
+import T from 'prop-types';
 
 import placeholder from '../../assets/images/placeholder.png';
 
@@ -48,5 +49,9 @@ function InputFile({ onChange, ...props }) {
     </>
   );
 }
+
+InputFile.propTypes = {
+  onChange: T.func.isRequired,
+};
 
 export default InputFile;
