@@ -1,10 +1,10 @@
-import T from 'prop-types';
+import T from 'prop-types'
 
-import useForm from '../../../hooks/useForm';
-import SelectTags from '../SelectTags';
-import { RadioGroup, SelectRange } from '../../common';
-import { advert } from '../propTypes';
-import { saleFilter } from './filters';
+import useForm from '../../../hooks/useForm'
+import SelectTags from '../SelectTags'
+import { RadioGroup, SelectRange } from '../../common'
+import { advert } from '../propTypes'
+import { saleFilter } from './filters'
 
 function FiltersForm({ initialFilters, defaultFilters, onFilter, prices }) {
   const {
@@ -12,16 +12,16 @@ function FiltersForm({ initialFilters, defaultFilters, onFilter, prices }) {
     setFormValue,
     handleChange,
     handleSubmit,
-  } = useForm(initialFilters);
+  } = useForm(initialFilters)
 
   const handleResetClick = () => {
-    setFormValue(defaultFilters);
-    onFilter(defaultFilters);
-  };
+    setFormValue(defaultFilters)
+    onFilter(defaultFilters)
+  }
 
-  const { name, sale, price, tags } = filters;
-  const min = Math.min(...prices);
-  const max = Math.max(...prices);
+  const { name, sale, price, tags } = filters
+  const min = Math.min(...prices)
+  const max = Math.max(...prices)
 
   return (
     <form onSubmit={handleSubmit(onFilter)}>
@@ -46,20 +46,20 @@ function FiltersForm({ initialFilters, defaultFilters, onFilter, prices }) {
       <button type="submit">Filter</button>
       <button onClick={handleResetClick}>Reset</button>
     </form>
-  );
+  )
 }
 
 const filtersProp = T.shape({
   ...advert,
   sale: T.oneOf(Object.keys(saleFilter)).isRequired,
   price: T.arrayOf(T.number.isRequired).isRequired,
-});
+})
 
 FiltersForm.propTypes = {
   initialFilters: filtersProp.isRequired,
   defaultFilters: filtersProp.isRequired,
   onFilter: T.func.isRequired,
   prices: T.arrayOf(T.number.isRequired).isRequired,
-};
+}
 
-export default FiltersForm;
+export default FiltersForm

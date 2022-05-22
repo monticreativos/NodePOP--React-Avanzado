@@ -1,31 +1,35 @@
-import T from 'prop-types';
+import T from 'prop-types'
 
-import useForm from '../../../hooks/useForm';
-import { InputFile } from '../../common';
-import SelectTags from '../SelectTags';
+import useForm from '../../../hooks/useForm'
+import { InputFile } from '../../common'
+import SelectTags from '../SelectTags'
+import { useDispatch } from 'react-redux'
+import { tweetCreated } from '../../../store/actions'
 
-const validName = ({ name }) => name;
+const validName = ({ name }) => name
 const validPrice = ({ price }) =>
-  !Number.isNaN(price) && Number.isFinite(price) && price >= 0;
-const validTags = ({ tags }) => !!tags.length;
+  !Number.isNaN(price) && Number.isFinite(price) && price >= 0
+const validTags = ({ tags }) => !!tags.length
 
 function NewAdvertForm({ onSubmit }) {
-  const {
-    formValue: advert,
-    handleChange,
-    handleSubmit,
-    validate,
-  } = useForm({
+  const dispatch = useDispatch()
+
+  const { formValue: advert, handleChange, handleSubmit, validate } = useForm({
     name: '',
     sale: true,
     price: 0,
     tags: [],
     photo: null,
-  });
-  const { name, sale, price, tags } = advert;
+  })
+  const { name, sale, price, tags } = advert
+
+  const handleSubmits = async (event) => {
+    event.preventDefault()
+    dispatch(tweetCreated(advert))
+  }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmits}>
       <input name="name" value={name} onChange={handleChange} />
       <input
         type="checkbox"
@@ -40,11 +44,11 @@ function NewAdvertForm({ onSubmit }) {
         Save
       </button>
     </form>
-  );
+  )
 }
 
 NewAdvertForm.propTypes = {
   onSubmit: T.func.isRequired,
-};
+}
 
-export default NewAdvertForm;
+export default NewAdvertForm

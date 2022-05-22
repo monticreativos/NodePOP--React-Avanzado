@@ -1,9 +1,9 @@
-import { NavLink } from 'react-router-dom';
-import { AuthButton } from '../auth';
+import { NavLink } from 'react-router-dom'
+import { AuthButton } from '../auth'
 
-import './Header.css';
+import './Header.css'
 
-const isSelected = ({ isActive }) => (isActive ? 'selected' : '');
+const isSelected = ({ isActive }) => (isActive ? 'selected' : '')
 
 function Header() {
   return (
@@ -23,9 +23,9 @@ function Header() {
           </li>
         </ul>
       </nav>
-      <AuthButton />
+      <AuthButton className="header-button" />
     </header>
-  );
+  )
 }
 
-export default Header;
+export default Header
