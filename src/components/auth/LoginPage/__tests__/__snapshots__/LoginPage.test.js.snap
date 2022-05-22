@@ -1,0 +1,88 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LoginPage snapshot 1`] = `
+<div>
+  <div
+    class="loginPage"
+  >
+    1
+    <h1
+      class="loginPage-title"
+    >
+      Log in to Nodepop
+    </h1>
+    <form
+      class="loginForm"
+    >
+      <div
+        class="formField loginForm-field"
+      >
+        <label
+          class="formField-label"
+        >
+          <span>
+            phone, email or username
+          </span>
+          <input
+            autocomplete="off"
+            class="formField-input"
+            name="email"
+            type="text"
+            value=""
+          />
+        </label>
+      </div>
+      <div
+        class="formField loginForm-field"
+      >
+        <label
+          class="formField-label"
+        >
+          <span>
+            password
+          </span>
+          <input
+            autocomplete="off"
+            class="formField-input"
+            name="password"
+            type="password"
+            value=""
+          />
+        </label>
+      </div>
+      <input
+        name="remember"
+        type="checkbox"
+        value="remember"
+      />
+      <select>
+        <option
+          value="1"
+        >
+          Option 1
+        </option>
+        <option
+          value="2"
+        >
+          Option 2
+        </option>
+        <option
+          value="3"
+        >
+          Option 3
+        </option>
+      </select>
+      <input
+        type="file"
+      />
+      <button
+        class="sc-bczRLJ jSwChQ loginForm-submit"
+        disabled=""
+        type="submit"
+      >
+        Log in
+      </button>
+    </form>
+  </div>
+</div>
+`;

@@ -11,7 +11,7 @@ import { authLogin, uiResetError } from '../../../store/actions'
 import { getUi } from '../../../store/selectors'
 
 function useRenders() {
-  const location = useLocation()
+  // const location = useLocation()
 
   const count = useRef(1)
   const isLogged = useSelector(getIsLogged)
@@ -22,7 +22,7 @@ function useRenders() {
   })
 
   if (isLogged) {
-    return <Navigate to="/adverts" state={{ from: location }} replace />
+    return <Navigate to="/adverts" replace />
   }
 
   return count.current
@@ -71,7 +71,7 @@ function LoginPage() {
   return (
     <div className="loginPage">
       {renders}
-      <h1 className="loginPage-title">Log in to Twitter</h1>
+      <h1 className="loginPage-title">Log in to Nodepop</h1>
       <form className="loginForm" onSubmit={handleSubmit}>
         <FormField
           type="text"
