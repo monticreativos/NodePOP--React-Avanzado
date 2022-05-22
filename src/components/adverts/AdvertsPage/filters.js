@@ -2,45 +2,39 @@ export const saleFilter = {
   all: { value: 'all', label: 'All' },
   sell: { value: 'sell', label: 'Sell' },
   buy: { value: 'buy', label: 'Buy' },
-};
+}
 
 export const defaultFilters = {
   name: '',
   price: [],
   sale: saleFilter.all.value,
   tags: [],
-};
+}
 
 // Individual filters are in form
 // filterValue => advert => Boolean
 
-const filterByName =
-  filter =>
-  ({ name }) => {
-    const cleanFilter = filter.trim();
-    return !cleanFilter || new RegExp(cleanFilter, 'gi').test(name);
-  };
+const filterByName = (filter) => ({ name }) => {
+  const cleanFilter = filter.trim()
+  return !cleanFilter || new RegExp(cleanFilter, 'gi').test(name)
+}
 
-const filterByPrice =
-  filter =>
-  ({ price }) => {
-    if (!filter.length) {
-      return true;
-    }
-    const [min, max] = filter;
-    if (!max) {
-      return price >= min;
-    }
-    return price >= min && price <= max;
-  };
+const filterByPrice = (filter) => ({ price }) => {
+  if (!filter.length) {
+    return true
+  }
+  const [min, max] = filter
+  if (!max) {
+    return price >= min
+  }
+  return price >= min && price <= max
+}
 
-const filterBySale =
-  filter =>
-  ({ sale }) =>
-    [
-      saleFilter.all.value,
-      sale ? saleFilter.sell.value : saleFilter.buy.value,
-    ].includes(filter);
+const filterBySale = (filter) => ({ sale }) =>
+  [
+    saleFilter.all.value,
+    sale ? saleFilter.sell.value : saleFilter.buy.value,
+  ].includes(filter)
 
 // const filterBySale =
 //   filter =>
@@ -56,10 +50,8 @@ const filterBySale =
 //     }
 //   };
 
-const filterByTags =
-  filter =>
-  ({ tags }) =>
-    !filter.length || filter.every(tag => tags.includes(tag));
+const filterByTags = (filter) => ({ tags }) =>
+  !filter.length || filter.every((tag) => tags.includes(tag))
 
 // export const filterAdverts = (adverts, { name, price, sale, tags }) => {
 //   const applyFilters = (...filters) =>
@@ -73,7 +65,10 @@ const filterByTags =
 //   );
 // };
 
-export const filterAdverts = (adverts, { name, price, sale, tags }) =>
+export const filterAdverts = (
+  adverts,
+  { name, price, sale, tags } = defaultFilters,
+) =>
   // adverts.filter(
   //   advert =>
   //     filterByName(name)(advert) &&
@@ -85,4 +80,4 @@ export const filterAdverts = (adverts, { name, price, sale, tags }) =>
     .filter(filterByName(name))
     .filter(filterByPrice(price))
     .filter(filterBySale(sale))
-    .filter(filterByTags(tags));
+    .filter(filterByTags(tags))

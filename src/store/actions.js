@@ -116,8 +116,6 @@ export const advertsLoaded = () => {
     dispatch(advertsLoadedRequest())
     try {
       const adverts = await api.adverts.getAdverts()
-      // const tags = await api.adverts.getTags()
-      // dispatch(advertTags(tags))
       dispatch(advertsLoadedSuccess(adverts))
       return
     } catch (error) {
@@ -125,25 +123,6 @@ export const advertsLoaded = () => {
     }
   }
 }
-
-// export const advertsLoadedFilter = () => {
-//   return async function (dispatch, getState, { api }) {
-//     const getFilters = () => storage.get('filters') || defaultFilters
-//     const filters = getFilters()
-//     dispatch(advertTagsnRequest())
-//     try {
-//       const adverts = await api.adverts.getAdverts()
-//       const advertsFiltered = filterAdverts(adverts, filters)
-//       console.log(filters)
-//       console.log(advertsFiltered)
-//       dispatch(advertTagsSuccess(advertsFiltered))
-
-//       if (advertsFiltered) return
-//     } catch (error) {
-//       dispatch(advertTagsFailure(error))
-//     }
-//   }
-// }
 
 export const advertLoadedSuccess = (advert) => ({
   type: ADVERT_LOADED_SUCCESS,
@@ -171,54 +150,54 @@ export const advertLoaded = (advertId) => {
   }
 }
 
-export const tweetCreatedSuccess = (advert) => ({
+export const advertCreatedSuccess = (advert) => ({
   type: ADVERT_CREATED_SUCCESS,
   payload: advert,
 })
 
-export const tweetCreatedFailure = (error) => ({
+export const advertCreatedFailure = (error) => ({
   type: ADVERT_CREATED_FAILURE,
   payload: error,
   error: true,
 })
 
-export const tweetCreated = (advert) => {
+export const advertCreated = (advert) => {
   return async function (dispatch, _getState, { api, history }) {
     // dispatch(tweetCreatedRequest());
     try {
       const { id } = await api.adverts.createAdvert(advert)
       const createdTweet = await api.adverts.getAdvert(id)
-      dispatch(tweetCreatedSuccess(createdTweet))
+      dispatch(advertCreatedSuccess(createdTweet))
       return createdTweet
     } catch (error) {
-      dispatch(tweetCreatedFailure(error))
+      dispatch(advertCreatedFailure(error))
     }
   }
 }
 
-export const tweetDeletedSuccess = (adverts) => ({
+export const advertDeletedSuccess = (state) => ({
   type: ADVERT_DELETED_SUCCESS,
-  payload: adverts,
+  payload: [state],
 })
 
-export const tweetDeletedFailure = (error) => ({
+export const advertDeletedFailure = (error) => ({
   type: ADVERT_DELETED_FAILURE,
   payload: error,
   error: true,
 })
 
-export const tweetDeleted = (id) => {
+export const advertDeleted = (id) => {
   return async function (dispatch, _getState, { api, history }) {
     // dispatch(tweetCreatedRequest());
     try {
       console.log(id)
-      const deleted = api.adverts.deleteAdvert(id)
-      const adverts = await api.adverts.getAdverts()
-      // const tags = await api.adverts.getTags()
-      // dispatch(advertTags(tags))
-      dispatch(tweetDeletedSuccess(true))
+      const deleted = await api.adverts.deleteAdvert(id)
+      const state = _getState()
+      const data = state.adverts.data
+      const newState = data.filter((advert) => advert.id !== id)
+      dispatch(advertDeletedSuccess(newState))
     } catch (error) {
-      dispatch(tweetCreatedFailure(error))
+      dispatch(advertDeletedFailure(error))
     }
   }
 }

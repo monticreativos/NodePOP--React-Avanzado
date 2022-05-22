@@ -6,7 +6,7 @@ import { getAdvert, deleteAdvert } from '../service'
 import useQuery from '../../../hooks/useQuery'
 import useMutation from '../../../hooks/useMutation'
 import { useDispatch } from 'react-redux'
-import { tweetDeleted } from '../../../store/actions'
+import { advertDeleted } from '../../../store/actions'
 
 function AdvertPage() {
   const { advertId } = useParams()
@@ -16,7 +16,7 @@ function AdvertPage() {
   // const mutation = useMutation(deleteAdvert)
   const dispatch = useDispatch()
 
-  const handleDelete = (advertId) => {
+  const handleDelete = () => {
     // dispatch(tweetDeleted(advertId))
     // mutation.execute(advertId).then(() => navigate('/'))
   }
@@ -29,7 +29,7 @@ function AdvertPage() {
     return <Navigate to="/404" />
   }
 
-  return <>{advert && <AdvertDetail onDelete={handleDelete} {...advert} />}</>
+  return <>{advert && <AdvertDetail {...advert} />}</>
 }
 
 export default AdvertPage

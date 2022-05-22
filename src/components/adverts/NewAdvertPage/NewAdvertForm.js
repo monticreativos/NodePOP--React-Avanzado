@@ -4,7 +4,7 @@ import useForm from '../../../hooks/useForm'
 import { InputFile } from '../../common'
 import SelectTags from '../SelectTags'
 import { useDispatch } from 'react-redux'
-import { tweetCreated } from '../../../store/actions'
+import { advertCreated } from '../../../store/actions'
 
 const validName = ({ name }) => name
 const validPrice = ({ price }) =>
@@ -25,7 +25,7 @@ function NewAdvertForm({ onSubmit }) {
 
   const handleSubmits = async (event) => {
     event.preventDefault()
-    dispatch(tweetCreated(advert))
+    dispatch(advertCreated(advert))
   }
 
   return (
