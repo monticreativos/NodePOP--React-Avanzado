@@ -79,7 +79,10 @@ export const adverts = (state = defaultState.adverts, action) => {
     case ADVERTS_FILTER_SUCCESS:
       return { ...state, data: [action.payload] }
     case ADVERT_DELETED_SUCCESS:
-      return { ...state, data: [action.payload] }
+      return {
+        ...state,
+        data: state.data.filter(advert => advert.id !== action.payload),
+      };
     default:
       return state
   }

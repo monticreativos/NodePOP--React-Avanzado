@@ -20,7 +20,7 @@ const useTweets = () => {
   const dispatch = useDispatch()
   const tweets = useSelector(getAdverts)
 
-  useEffect(() => {
+  React.useEffect(() => {
     dispatch(advertsLoaded())
   }, [dispatch])
 

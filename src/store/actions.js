@@ -19,6 +19,7 @@ import {
   ADVERT_DELETED_SUCCESS,
   ADVERT_DELETED_FAILURE,
   ADVERT_TAGS,
+  ADVERT_LOADED_REQUEST,
 } from './types'
 
 export const accessToken = () => ({
@@ -123,6 +124,9 @@ export const advertsLoaded = () => {
     }
   }
 }
+export const advertLoadedRequest = () => ({
+  type: ADVERT_LOADED_REQUEST,
+});
 
 export const advertLoadedSuccess = (advert) => ({
   type: ADVERT_LOADED_SUCCESS,
@@ -136,18 +140,20 @@ export const advertLoadedFailure = (error) => ({
 })
 
 export const advertLoaded = (advertId) => {
-  return async function (dispatch, getState, { api, history }) {
-    const advertLoaded = getAdvert(advertId)(getState())
-    if (advertLoaded) return
+  
 
-    // dispatch(advertLoadedRequest());
-    try {
-      const advert = await api.adverts.getAdvert(advertId)
-      dispatch(advertLoadedSuccess(advert))
-    } catch (error) {
-      dispatch(advertLoadedFailure(error))
+  return async function (dispatch, getState, { api }) {
+    if (getAdvert(getState(), advertId)) {
+      return;
     }
-  }
+    dispatch(advertLoadedRequest());
+    try {
+      const advert = await api.adverts.getAdvert(advertId);
+      dispatch(advertLoadedSuccess(advert));
+    } catch (error) {
+      dispatch(advertLoadedFailure(error));
+    }
+  };
 }
 
 export const advertCreatedSuccess = (advert) => ({
@@ -190,15 +196,9 @@ export const advertDeleted = (id) => {
   return async function (dispatch, getState, { api, history }) {
     // dispatch(tweetCreatedRequest());
     try {
-      console.log(id)
-      const state = getState()
-      console.log(state)
-      const deletedAdvert  = getDeletedAdvert(id)(getState())
-      console.log(deletedAdvert)
-      const deleted = await api.adverts.deleteAdvert(id)
-      if (deletedAdvert) {
-        dispatch(advertDeletedSuccess(deletedAdvert))
-      }
+      await api.adverts.deleteAdvert(id)
+        dispatch(advertDeletedSuccess(id))
+        history.push(`/adverts`);
     } catch (error) {
       dispatch(advertDeletedFailure(error))
     }

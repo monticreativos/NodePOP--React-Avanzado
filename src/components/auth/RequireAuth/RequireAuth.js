@@ -1,10 +1,12 @@
 import T from 'prop-types'
 import { connect } from 'react-redux'
 import { Navigate, useLocation } from 'react-router-dom'
+import useStoreData from '../../../hooks/useStoreData';
 import { getIsLogged } from '../../../store/selectors'
 
-const RequireAuth = ({ isLogged, children }) => {
+const RequireAuth = ({ children }) => {
   const location = useLocation()
+  const isLogged = useStoreData(getIsLogged);
 
   if (!isLogged) {
     return <Navigate to="/login" state={{ from: location }} replace />
@@ -14,19 +16,8 @@ const RequireAuth = ({ isLogged, children }) => {
 }
 
 RequireAuth.propTypes = {
-  isLogged: T.bool,
   children: T.node,
 }
 
-const mapStateToProps = (state) => {
-  return {
-    isLogged: getIsLogged(state),
-  }
-}
 
-const ConectedRequireAuth = connect(
-  mapStateToProps,
-  //  mapDispatchToProps,
-)(RequireAuth)
-
-export default ConectedRequireAuth
+export default RequireAuth
