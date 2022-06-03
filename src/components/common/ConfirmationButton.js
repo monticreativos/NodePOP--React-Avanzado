@@ -25,9 +25,7 @@ function ConfirmationButton({ confirmation, classname }) {
   const isLogged = useSelector(getIsLogged)
 
   const handleConfirmClick = () => {
-    dispatch(advertDeleted(advertId)).then(() => {
-      navigate('/')
-    })
+    dispatch(advertDeleted(advertId))
   }
 
   const handleLogoutClick = async () => {

@@ -1,6 +1,8 @@
 import { auth } from '../reducers'
 import { AUTH_LOGOUT_SUCCESS } from '../types'
 
+import '@testing-library/jest-dom';
+
 describe('auth', () => {
   it('should manage AUTH_LOGOUT_SUCCESS action', () => {
     const action = {

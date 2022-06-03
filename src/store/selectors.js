@@ -10,3 +10,6 @@ export const getAdvert = (advertId) => (state) =>
   state.adverts.data.find((advert) => advert.id === advertId)
 
 export const getUi = (state) => state.ui
+
+export const getDeletedAdvert = (advertId) => (state) =>
+  state.adverts.data.filter((advert) => advert.id != advertId)

@@ -3,6 +3,7 @@ import { Provider } from 'react-redux'
 import LoginPage from '../LoginPage'
 import { authLogin, uiResetError } from '../../../../store/actions'
 import { BrowserRouter as Router } from 'react-router-dom'
+import '@testing-library/jest-dom';
 
 jest.mock('../../../../store/actions')
 

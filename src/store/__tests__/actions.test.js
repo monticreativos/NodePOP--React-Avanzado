@@ -5,6 +5,8 @@ import {
   AUTH_LOGIN_SUCCESS,
 } from '../types'
 
+import '@testing-library/jest-dom';
+
 describe('authLoginRequest', () => {
   test('should return an AUTH_LOGIN_REQUEST action', () => {
     const expectedAction = {

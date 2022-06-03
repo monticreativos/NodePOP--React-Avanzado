@@ -1,5 +1,7 @@
 import { getAdvert } from '../selectors'
 
+import '@testing-library/jest-dom';
+
 describe('getAdverts', () => {
   it('should return a tweet', () => {
     const advertsId = '1'

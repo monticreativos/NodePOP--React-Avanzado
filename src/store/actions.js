@@ -1,4 +1,4 @@
-import { getAreAdvertsLoaded, getAdvert } from './selectors'
+import { getAreAdvertsLoaded, getAdvert, getDeletedAdvert } from './selectors'
 import {
   AUTH_LOGIN_FAILURE,
   AUTH_LOGIN_REQUEST,
@@ -166,18 +166,18 @@ export const advertCreated = (advert) => {
     // dispatch(tweetCreatedRequest());
     try {
       const { id } = await api.adverts.createAdvert(advert)
-      const createdTweet = await api.adverts.getAdvert(id)
-      dispatch(advertCreatedSuccess(createdTweet))
-      return createdTweet
+      const createdAdvert = await api.adverts.getAdvert(id)
+      dispatch(advertCreatedSuccess(createdAdvert))
+      return createdAdvert
     } catch (error) {
       dispatch(advertCreatedFailure(error))
     }
   }
 }
 
-export const advertDeletedSuccess = (state) => ({
+export const advertDeletedSuccess = (adverts) => ({
   type: ADVERT_DELETED_SUCCESS,
-  payload: [state],
+  payload: adverts,
 })
 
 export const advertDeletedFailure = (error) => ({
@@ -187,15 +187,18 @@ export const advertDeletedFailure = (error) => ({
 })
 
 export const advertDeleted = (id) => {
-  return async function (dispatch, _getState, { api, history }) {
+  return async function (dispatch, getState, { api, history }) {
     // dispatch(tweetCreatedRequest());
     try {
       console.log(id)
+      const state = getState()
+      console.log(state)
+      const deletedAdvert  = getDeletedAdvert(id)(getState())
+      console.log(deletedAdvert)
       const deleted = await api.adverts.deleteAdvert(id)
-      const state = _getState()
-      const data = state.adverts.data
-      const newState = data.filter((advert) => advert.id !== id)
-      dispatch(advertDeletedSuccess(newState))
+      if (deletedAdvert) {
+        dispatch(advertDeletedSuccess(deletedAdvert))
+      }
     } catch (error) {
       dispatch(advertDeletedFailure(error))
     }
