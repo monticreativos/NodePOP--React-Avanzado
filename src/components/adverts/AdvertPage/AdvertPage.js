@@ -1,33 +1,21 @@
-import React from 'react'
-import { Navigate, useParams, useNavigate } from 'react-router-dom'
+import React from 'react';
+import { useParams } from 'react-router-dom';
 
-import AdvertDetail from './AdvertDetail'
-import { getAdvert, deleteAdvert } from '../service'
-import useQuery from '../../../hooks/useQuery'
-import useMutation from '../../../hooks/useMutation'
-import { useDispatch } from 'react-redux'
-import { advertDeleted } from '../../../store/actions'
+import AdvertDetail from './AdvertDetail';
+import { getAdvert } from '../../../store/selectors';
+import { advertLoaded } from '../../../store/actions';
+import useStoreAction from '../../../hooks/useStoreAction';
+import useStoreData from '../../../hooks/useStoreData';
 
 function AdvertPage() {
-  const { advertId } = useParams()
-  const navigate = useNavigate()
-  const getAdvertById = React.useCallback(() => getAdvert(advertId), [advertId])
-  const { isLoading, error, data: advert } = useQuery(getAdvertById)
-  // const mutation = useMutation(deleteAdvert)
-  const dispatch = useDispatch()
+  const { advertId } = useParams();
+  const loadAdvertAction = useStoreAction(advertLoaded);
+  const advert = useStoreData(state => getAdvert(state, advertId));
 
-  const handleDelete = () => {
-    // dispatch(tweetDeleted(advertId))
-    // mutation.execute(advertId).then(() => navigate('/'))
-  }
+  React.useEffect(() => {
+    loadAdvertAction(advertId);
+  }, [loadAdvertAction, advertId]);
 
-  // if (error?.statusCode === 401 || mutation.error?.statusCode === 401) {
-  //   return <Navigate to="/login" />
-  // }
-
-  if (error?.statusCode === 404) {
-    return <Navigate to="/404" />
-  }
 
   return <>{advert && <AdvertDetail {...advert} />}</>
 }

@@ -35,16 +35,16 @@ const timestamp = () => (next) => (action) => {
   return next(newAction)
 }
 
-const allState = (store) => (next) => (action) => {
-  const newAction = {
-    ...action,
-    meta: {
-      ...action.meta,
-      state: store.getState(),
-    },
-  }
-  return next(newAction)
-}
+// const allState = (store) => (next) => (action) => {
+//   const newAction = {
+//     ...action,
+//     meta: {
+//       ...action.meta,
+//       state: store.getState(),
+//     },
+//   }
+//   return next(newAction)
+// }
 
 const failureRedirections = (history, redirections) => (_store) => (next) => (
   action,

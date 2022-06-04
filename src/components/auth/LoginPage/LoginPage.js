@@ -3,7 +3,7 @@ import Button from '../common/Button'
 import FormField from '../common/FormField'
 import T from 'prop-types'
 import { getIsLogged } from '../../../store/selectors'
-import { Navigate, useLocation } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 
 import './LoginPage.css'
 import { useDispatch, useSelector } from 'react-redux'
@@ -11,7 +11,6 @@ import { authLogin, uiResetError } from '../../../store/actions'
 import { getUi } from '../../../store/selectors'
 
 function useRenders() {
-  // const location = useLocation()
 
   const count = useRef(1)
   const isLogged = useSelector(getIsLogged)

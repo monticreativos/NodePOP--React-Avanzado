@@ -8,7 +8,6 @@ const Textarea = ({ className, ...props }) => {
   const rendersRef = useRef(0);
 
   useEffect(() => {
-    // console.log(textAreaRef.current);
     textAreaRef.current.focus();
   }, []);
 

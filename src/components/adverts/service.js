@@ -22,7 +22,3 @@ export const deleteAdvert = (advertId) => {
 export const createAdvert = withFormData((newAdvert) => {
   return client.post(advertsPath, newAdvert)
 })
-
-// export const createAdvert = newAdvert => {
-//   return client.post(advertsPath, objectToFormData(newAdvert));
-// };

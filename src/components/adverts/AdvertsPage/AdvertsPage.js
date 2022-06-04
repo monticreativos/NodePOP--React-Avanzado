@@ -1,6 +1,5 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useEffect } from 'react'
 import FiltersForm from './FiltersForm'
 import AdvertsList from './AdvertsList'
 import EmptyList from './EmptyList'
@@ -13,18 +12,18 @@ import { advertsLoaded } from '../../../store/actions'
 const getFilters = () => storage.get('filters') || defaultFilters
 const saveFilters = (filters) => storage.set('filters', filters)
 
-const useTweets = () => {
+const useAdverts = () => {
   const dispatch = useDispatch()
-  const tweets = useSelector(getAdverts)
+  const adverts = useSelector(getAdverts)
 
   React.useEffect(() => {
     dispatch(advertsLoaded())
   }, [dispatch])
 
-  return tweets
+  return adverts
 }
 const AdvertsPage = () => {
-  const adverts = useTweets()
+  const adverts = useAdverts()
   const [filters, setFilters] = React.useState(getFilters)
 
   React.useEffect(() => {

@@ -14,7 +14,7 @@ const validTags = ({ tags }) => !!tags.length
 function NewAdvertForm({ onSubmit }) {
   const dispatch = useDispatch()
 
-  const { formValue: advert, handleChange, handleSubmit, validate } = useForm({
+  const { formValue: advert, handleChange, validate } = useForm({
     name: '',
     sale: true,
     price: 0,

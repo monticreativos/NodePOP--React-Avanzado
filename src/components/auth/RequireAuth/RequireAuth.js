@@ -1,5 +1,4 @@
 import T from 'prop-types'
-import { connect } from 'react-redux'
 import { Navigate, useLocation } from 'react-router-dom'
 import useStoreData from '../../../hooks/useStoreData';
 import { getIsLogged } from '../../../store/selectors'

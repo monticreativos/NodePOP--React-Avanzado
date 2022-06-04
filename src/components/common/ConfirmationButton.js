@@ -1,16 +1,14 @@
 import React from 'react'
 import T from 'prop-types'
 import { Link } from 'react-router-dom'
-import { Navigate, useParams, useNavigate } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 
 import { authLogout, advertDeleted } from '../../store/actions'
 import { useDispatch, useSelector } from 'react-redux'
 import { getIsLogged } from '../../store/selectors'
 
-// function ConfirmationButton({ confirmation, onConfirm, ...props }) {
 function ConfirmationButton({ confirmation, classname }) {
   const { advertId } = useParams()
-  const navigate = useNavigate()
   const dispatch = useDispatch()
 
   const [confirmationVisible, setConfirmationVisible] = React.useState(false)

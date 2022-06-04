@@ -12,7 +12,6 @@ function LoginForm({ onSubmit }) {
   const {
     formValue: credentials,
     handleChange,
-    // handleSubmit,
     validate,
   } = useForm({
     email: '',
@@ -22,7 +21,6 @@ function LoginForm({ onSubmit }) {
   const { email, password, remember } = credentials
 
   const handleSubmit = async (event) => {
-    // event.preventDefault()
     dispatch(authLogin(credentials))
   }
 
