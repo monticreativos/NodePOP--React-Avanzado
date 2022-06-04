@@ -1,23 +1,18 @@
 import React from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux'
 
-import { createAdvert } from '../service';
 import NewAdvertForm from './NewAdvertForm';
-import useMutation from '../../../hooks/useMutation';
+import { advertCreated } from '../../../store/actions';
 
 function NewAdvertPage() {
-  const navigate = useNavigate();
-  const mutation = useMutation(createAdvert);
+  const dispatch = useDispatch()
 
   const handleSubmit = newAdvert => {
-    mutation.execute(newAdvert).then(({ id }) => navigate(`/adverts/${id}`));
+    dispatch(advertCreated(newAdvert))
+
   };
 
-  if (mutation.error?.statusCode === 401) {
-    return <Navigate to="/login" />;
-  }
-
-  return (
+   return (
     <>
       <NewAdvertForm onSubmit={handleSubmit} />
     </>

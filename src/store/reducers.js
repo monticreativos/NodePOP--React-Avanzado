@@ -20,6 +20,7 @@ import {
   ADVERT_TAGS,
   ADVERT_DELETED_SUCCESS,
   ADVERT_DELETED_FAILURE,
+  TAGS_LOADED,
 } from './types'
 
 export const defaultState = {
@@ -32,22 +33,8 @@ export const defaultState = {
   ui: {
     isLoading: false,
     error: null,
-    token: null,
   },
 }
-
-// const reducer = (state = defaultState, action) => {
-//   switch (action.type) {
-//     case AUTH_LOGIN:
-//       return { ...state, auth: true };
-//     case AUTH_LOGOUT:
-//       return { ...state, auth: false };
-//     case TWEETS_LOADED:
-//       return { ...state, tweets: action.payload };
-//     default:
-//       return state;
-//   }
-// };
 
 export const auth = (state = defaultState, action) => {
   switch (action.type) {
@@ -65,8 +52,7 @@ export const auth = (state = defaultState, action) => {
 }
 
 export const adverts = (state = defaultState.adverts, action) => {
-  // access to state.tweets
-  // no access to state.ui, state.auth
+
   switch (action.type) {
     case ADVERTS_LOADED_SUCCESS:
       return { loaded: true, data: action.payload }
@@ -114,23 +100,6 @@ export const ui = (state = defaultState.ui, action) => {
       return state
   }
 }
+export const tags = (state = defaultState.tags, action) =>
+  action.type === TAGS_LOADED ? action.payload : state;
 
-// const reducer = (state = defaultState, action) => {
-//   return {
-//     auth: auth(state.auth, action),
-//     tweets: tweets(state.tweets, action),
-//     ui: ui(state.ui, action),
-//   };
-// };
-
-// const reducer = combineReducers({
-//   auth: auth,
-//   tweets: tweets,
-//   ui: ui,
-// });
-
-// const reducer = combineReducers({
-//   auth,
-//   tweets,
-//   ui,
-// });

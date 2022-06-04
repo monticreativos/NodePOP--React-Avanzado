@@ -29,3 +29,5 @@ export const HISTORY_BACK = 'HISTORY_BACK'
 export const ACCESS_TOKEN = 'ACCESS_TOKEN'
 
 export const ADVERT_TAGS = 'ADVERT_TAGS'
+
+export const TAGS_LOADED = 'TAGS_LOADED'

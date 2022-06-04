@@ -1,11 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import useStoreAction from '../../../hooks/useStoreAction';
+import useStoreData from '../../../hooks/useStoreData';
 
-import { getTags } from '../service';
+import { loadTags } from '../../../store/actions';
+import { getTags } from '../../../store/selectors';
+
 import { CheckboxGroup } from '../../common';
-import useQuery from '../../../hooks/useQuery';
 
 function SelectTags(props) {
-  const { data: tags = [] } = useQuery(getTags);
+  const loadTagsAction = useStoreAction(loadTags);
+  const tags = useStoreData(getTags);
+
+  useEffect(() => {
+    loadTagsAction();
+  }, [loadTagsAction]);
+
   return <CheckboxGroup options={tags} {...props} />;
 }
 

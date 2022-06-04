@@ -1,4 +1,4 @@
-import { getAreAdvertsLoaded, getAdvert, getDeletedAdvert } from './selectors'
+import { getAreAdvertsLoaded, getAdvert, getAreTagsLoaded } from './selectors'
 import {
   AUTH_LOGIN_FAILURE,
   AUTH_LOGIN_REQUEST,
@@ -20,6 +20,7 @@ import {
   ADVERT_DELETED_FAILURE,
   ADVERT_TAGS,
   ADVERT_LOADED_REQUEST,
+  TAGS_LOADED,
 } from './types'
 
 export const accessToken = () => ({
@@ -208,3 +209,19 @@ export const advertDeleted = (id) => {
 export const uiResetError = () => ({
   type: UI_RESET_ERROR,
 })
+
+
+export const tagsLoaded = tags => ({
+  type: TAGS_LOADED,
+  payload: tags,
+});
+
+export const loadTags = () => {
+  return async function (dispatch, getState, { api }) {
+    if (getAreTagsLoaded(getState())) {
+      return;
+    }
+    const tags = await api.adverts.getTags();
+    dispatch(tagsLoaded(tags));
+  };
+};

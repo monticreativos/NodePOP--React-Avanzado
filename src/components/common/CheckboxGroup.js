@@ -3,6 +3,7 @@ import T from 'prop-types';
 function CheckboxGroup({ options, value, onChange, ...props }) {
   const handleChange = ev => {
     const { name, checked, value: optionValue } = ev.target;
+    console.log(optionValue)
     onChange({
       target: {
         name,
@@ -12,6 +13,9 @@ function CheckboxGroup({ options, value, onChange, ...props }) {
       },
     });
   };
+  console.log(options)
+  console.log(value)
+
 
   return (
     <div>
