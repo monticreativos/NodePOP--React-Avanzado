@@ -13,7 +13,6 @@ import {
   ADVERT_CREATED_REQUEST,
   ADVERTS_LOADED_REQUEST,
   ADVERT_CREATED_FAILURE,
-  ACCESS_TOKEN,
   ADVERT_DELETED_SUCCESS,
   ADVERT_DELETED_FAILURE,
   TAGS_LOADED,
@@ -40,8 +39,6 @@ export const auth = (state = defaultState, action) => {
       return { ...state, auth: true, token: action.payload }
     case AUTH_LOGOUT_SUCCESS:
       return false
-    case ACCESS_TOKEN:
-      return state.auth.token
     default:
       return state
   }
