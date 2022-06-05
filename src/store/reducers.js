@@ -13,11 +13,7 @@ import {
   ADVERT_CREATED_REQUEST,
   ADVERTS_LOADED_REQUEST,
   ADVERT_CREATED_FAILURE,
-  ADVERTS_FILTER_REQUEST,
-  ADVERTS_FILTER_SUCCESS,
-  ADVERTS_FILTER_FAILURE,
   ACCESS_TOKEN,
-  ADVERT_TAGS,
   ADVERT_DELETED_SUCCESS,
   ADVERT_DELETED_FAILURE,
   TAGS_LOADED,
@@ -60,10 +56,6 @@ export const adverts = (state = defaultState.adverts, action) => {
       return { ...state, data: [...state.data, action.payload] }
     case ADVERT_CREATED_SUCCESS:
       return { ...state, data: [action.payload, ...state.data] }
-    case ADVERT_TAGS:
-      return { ...state, tags: action.payload }
-    case ADVERTS_FILTER_SUCCESS:
-      return { ...state, data: [action.payload] }
     case ADVERT_DELETED_SUCCESS:
       return {
         ...state,
@@ -79,7 +71,6 @@ export const ui = (state = defaultState.ui, action) => {
     case AUTH_LOGIN_REQUEST:
     case ADVERTS_LOADED_REQUEST:
     case ADVERT_LOADED_REQUEST:
-    case ADVERTS_FILTER_REQUEST:
     case ADVERT_CREATED_REQUEST:
       return { ...state, isLoading: true, error: null }
     case AUTH_LOGIN_SUCCESS:
@@ -90,7 +81,6 @@ export const ui = (state = defaultState.ui, action) => {
     case AUTH_LOGIN_FAILURE:
     case ADVERTS_LOADED_FAILURE:
     case ADVERT_LOADED_FAILURE:
-    case ADVERTS_FILTER_FAILURE:
     case ADVERT_CREATED_FAILURE:
     case ADVERT_DELETED_FAILURE:
       return { ...state, isLoading: false, error: action.payload }

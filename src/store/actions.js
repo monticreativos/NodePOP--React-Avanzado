@@ -11,45 +11,18 @@ import {
   ADVERT_CREATED_SUCCESS,
   ADVERT_LOADED_FAILURE,
   ADVERT_LOADED_SUCCESS,
-  ADVERTS_FILTER_REQUEST,
-  ADVERTS_FILTER_SUCCESS,
-  ADVERTS_FILTER_FAILURE,
   UI_RESET_ERROR,
-  ACCESS_TOKEN,
   ADVERT_DELETED_SUCCESS,
   ADVERT_DELETED_FAILURE,
-  ADVERT_TAGS,
   ADVERT_LOADED_REQUEST,
   TAGS_LOADED,
 } from './types'
 
-export const accessToken = () => ({
-  type: ACCESS_TOKEN,
-})
+
+// Creamos los disparadores hacia el redux
 export const authLoginRequest = () => ({
   type: AUTH_LOGIN_REQUEST,
 })
-
-export const advertTagsnRequest = () => ({
-  type: ADVERTS_FILTER_REQUEST,
-})
-
-export const advertTagsSuccess = (adverts) => ({
-  type: ADVERTS_FILTER_SUCCESS,
-  payload: adverts,
-})
-
-export const advertTagsFailure = (error) => ({
-  type: ADVERTS_FILTER_FAILURE,
-  payload: error,
-  error: true,
-})
-
-export const advertTags = (tags) => ({
-  type: ADVERT_TAGS,
-  payload: tags,
-})
-
 export const authLoginSuccess = (token) => ({
   type: AUTH_LOGIN_SUCCESS,
   payload: token,
@@ -61,11 +34,8 @@ export const authLoginFailure = (error) => ({
   error: true,
 })
 
-export const accessTokenState = async () => {
-  return async function (dispatch, _getState) {
-    return dispatch(accessToken())
-  }
-}
+
+// Auth Login action
 export const authLogin = (credentials) => {
   return async function (dispatch, _getState, { api, history }) {
     dispatch(authLoginRequest())
@@ -83,10 +53,15 @@ export const authLogin = (credentials) => {
   }
 }
 
+
+
+// Creamos los disparadores hacia el redux
 export const authLogoutSuccess = () => ({
   type: AUTH_LOGOUT_SUCCESS,
 })
 
+
+// Auth Logout action
 export const authLogout = () => {
   return function (dispatch, _getState, { api }) {
     return api.auth.logout().then(() => {
@@ -95,6 +70,9 @@ export const authLogout = () => {
   }
 }
 
+
+
+// Creamos los disparadores hacia el redux
 export const advertsLoadedRequest = () => ({
   type: ADVERTS_LOADED_REQUEST,
 })
@@ -110,6 +88,8 @@ export const advertsLoadedFailure = (error) => ({
   error: true,
 })
 
+
+// Adverts Loaded action
 export const advertsLoaded = () => {
   return async function (dispatch, getState, { api }) {
     const advertssLoaded = getAreAdvertsLoaded(getState())
@@ -125,6 +105,11 @@ export const advertsLoaded = () => {
     }
   }
 }
+
+
+
+
+// Creamos los disparadores hacia el redux
 export const advertLoadedRequest = () => ({
   type: ADVERT_LOADED_REQUEST,
 });
@@ -140,9 +125,9 @@ export const advertLoadedFailure = (error) => ({
   error: true,
 })
 
-export const advertLoaded = (advertId) => {
-  
 
+// Advert Loaded by ID action
+export const advertLoaded = (advertId) => {
   return async function (dispatch, getState, { api }) {
     if (getAdvert(getState(), advertId)) {
       return;
@@ -157,6 +142,9 @@ export const advertLoaded = (advertId) => {
   };
 }
 
+
+
+// Creamos los disparadores hacia el redux
 export const advertCreatedSuccess = (advert) => ({
   type: ADVERT_CREATED_SUCCESS,
   payload: advert,
@@ -168,6 +156,8 @@ export const advertCreatedFailure = (error) => ({
   error: true,
 })
 
+
+// Advert Created action
 export const advertCreated = (advert) => {
   return async function (dispatch, _getState, { api, history }) {
     // dispatch(tweetCreatedRequest());
@@ -182,6 +172,9 @@ export const advertCreated = (advert) => {
   }
 }
 
+
+
+// Creamos los disparadores hacia el redux
 export const advertDeletedSuccess = (adverts) => ({
   type: ADVERT_DELETED_SUCCESS,
   payload: adverts,
@@ -193,6 +186,8 @@ export const advertDeletedFailure = (error) => ({
   error: true,
 })
 
+
+// Advert Deleted by ID action
 export const advertDeleted = (id) => {
   return async function (dispatch, getState, { api, history }) {
     // dispatch(tweetCreatedRequest());
@@ -206,16 +201,21 @@ export const advertDeleted = (id) => {
   }
 }
 
+
+
+// Creamos los disparadores hacia el redux
 export const uiResetError = () => ({
   type: UI_RESET_ERROR,
 })
 
-
+// Creamos los disparadores hacia el redux
 export const tagsLoaded = tags => ({
   type: TAGS_LOADED,
   payload: tags,
 });
 
+
+// Load Tags action
 export const loadTags = () => {
   return async function (dispatch, getState, { api }) {
     if (getAreTagsLoaded(getState())) {
